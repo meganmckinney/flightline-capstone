@@ -80,7 +80,7 @@ function isValidGroup(group) {
         return 4;
     if (group.ticketPrice == undefined || group.ticketPrice.trim() == "")
         return 5;
-    if (group.MaxGroupSize == undefined || isNaN(group.MaxGroupSize))
+    if (group.maxGroupSize == undefined || isNaN(group.maxGroupSize))
         return 6;
 
     return -1;
@@ -230,7 +230,7 @@ app.post("/api/groups", urlencodedParser, function (req, res) {
         flyTo: req.body.flyTo,
         flyFrom: req.body.flyFrom,
         ticketPrice: req.body.ticketPrice,
-        MaxGroupSize: Number(req.body.MaxGroupSize),
+        maxGroupSize: Number(req.body.maxGroupSize),
         Members: []
     };
 
@@ -270,7 +270,7 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
         flyTo: req.body.flyTo,
         flyFrom: req.body.flyFrom,
         ticketPrice: req.body.ticketPrice,
-        MaxGroupSize: Number(req.body.MaxGroupSize),
+        maxGroupSize: Number(req.body.maxGroupSize),
     };
 
     console.log("Performing validation...");
@@ -299,13 +299,13 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
     match.flyFrom = group.flyFrom;
     match.ticketPrice = group.ticketPrice;
 
-    // make sure new values for MaxGroupSize doesn't invalidate grooup
-    if (Number(group.MaxGroupSize) < match.Members.length) {
+    // make sure new values for maxGroupSize doesn't invalidate grooup
+    if (Number(group.maxGroupSize) < match.Members.length) {
         res.status(409).send("New group size too small based on current number of members");
         console.log("New group size too small based on current number of members");
         return;
     }
-    match.MaxGroupSize = Number(group.MaxGroupSize);
+    match.maxGroupSize = Number(group.maxGroupSize);
 
     fs.writeFileSync(__dirname + "/data/groups.json", JSON.stringify(data));
 
@@ -370,7 +370,7 @@ app.post("/api/groups/:id/members", urlencodedParser, function (req, res) {
         return;
     }
 
-    if (match.Members.length == match.MaxGroupSize) {
+    if (match.Members.length == match.maxGroupSize) {
         res.status(409).send("Member not added - group at capacity");
         console.log("Member not added - group at capacity");
         return;
