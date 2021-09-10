@@ -1,7 +1,7 @@
 [
     {
-        "GroupId": 1,
-        "GroupName": "United Front",
+        "flightId": 1,
+        "cabinClass": "United Front",
         "OrganizationName": "Organization One",
         "SponsorName": "Natalie Rachelle",
         "SponsorPhone": "555-000-0000",
@@ -29,8 +29,8 @@
         ]
     },
     {
-        "GroupId": 2,
-        "GroupName": "Warriors",
+        "flightId": 2,
+        "cabinClass": "Warriors",
         "OrganizationName": "Organization Two",
         "SponsorName": "Brittany Ray",
         "SponsorPhone": "555-000-0004",
@@ -52,8 +52,8 @@
         ]
     },
     {
-        "GroupId": 3,
-        "GroupName": "Strategy One",
+        "flightId": 3,
+        "cabinClass": "Strategy One",
         "OrganizationName": "Organization Three",
         "SponsorName": "Zachary Westly",
         "SponsorPhone": "555-000-0012",

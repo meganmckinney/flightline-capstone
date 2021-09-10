@@ -70,7 +70,7 @@ function getNextId(counterType)  // use 'group' or 'member' or 'user' as counter
 // ------ Validation helpers ------------------
 
 function isValidGroup(group) {
-    if (group.GroupName == undefined || group.GroupName.trim() == "")
+    if (group.cabinClass == undefined || group.cabinClass.trim() == "")
         return 1;
     if (group.OrganizationName == undefined || group.OrganizationName.trim() == "")
         return 2;
@@ -149,7 +149,7 @@ app.get("/api/groups/:id", function (req, res) {
     let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
     data = JSON.parse(data);
 
-    let match = data.find(element => element.GroupId == id);
+    let match = data.find(element => element.flightId == id);
     if (match == null) {
         res.status(404).send("Group Not Found");
         console.log("Group not found");
@@ -188,16 +188,16 @@ app.get("/api/groups/byorganization/:id", function (req, res) {
 });
 
 // GET A SPECIFIC MEMBER IN A SPECIFIC GROUP
-app.get("/api/groups/:groupid/members/:memberid", function (req, res) {
-    let groupId = req.params.groupid;
+app.get("/api/groups/:flightId/members/:memberid", function (req, res) {
+    let flightId = req.params.flightId;
     let memberId = req.params.memberid;
-    console.log("Received a GET request for member " + memberId + " in group " + groupId);
+    console.log("Received a GET request for member " + memberId + " in group " + flightId);
 
     let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
     data = JSON.parse(data);
 
     // find the group
-    let matchingGroup = data.find(element => element.GroupId == groupId);
+    let matchingGroup = data.find(element => element.flightId == flightId);
     if (matchingGroup == null) {
         res.status(404).send("Group Not Found");
         console.log("Group Not Found");
@@ -224,8 +224,8 @@ app.post("/api/groups", urlencodedParser, function (req, res) {
 
     // assemble group information so we can validate it
     let group = {
-        GroupId: getNextId("group"),  // assign id to group
-        GroupName: req.body.GroupName,
+        flightId: getNextId("group"),  // assign id to group
+        cabinClass: req.body.cabinClass,
         OrganizationName: req.body.OrganizationName,
         SponsorName: req.body.SponsorName,
         SponsorPhone: req.body.SponsorPhone,
@@ -254,7 +254,7 @@ app.post("/api/groups", urlencodedParser, function (req, res) {
     console.log(group);
 
     //res.status(201).send(JSON.stringify(group));
-    res.end(JSON.stringify(group));  // return the new group w it's GroupId
+    res.end(JSON.stringify(group));  // return the new group w it's flightId
 });
 
 // EDIT A GROUP
@@ -264,8 +264,8 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
 
     // assemble group information so we can validate it
     let group = {
-        GroupId: req.body.GroupId,  // req.params.id if you use id in URL instead of req.body.GroupId
-        GroupName: req.body.GroupName,
+        flightId: req.body.flightId,  // req.params.id if you use id in URL instead of req.body.flightId
+        cabinClass: req.body.cabinClass,
         OrganizationName: req.body.OrganizationName,
         SponsorName: req.body.SponsorName,
         SponsorPhone: req.body.SponsorPhone,
@@ -285,7 +285,7 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
     data = JSON.parse(data);
 
     // find the group
-    let match = data.find(element => element.GroupId == group.GroupId);
+    let match = data.find(element => element.flightId == group.flightId);
     if (match == null) {
         res.status(404).send("Group Not Found");
         console.log("Group Not Found");
@@ -293,7 +293,7 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
     }
 
     // update the group
-    match.GroupName = group.GroupName;
+    match.cabinClass = group.cabinClass;
     match.OrganizationName = group.OrganizationName;
     match.SponsorName = group.SponsorName;
     match.SponsorPhone = group.SponsorPhone;
@@ -323,7 +323,7 @@ app.delete("/api/groups/:id", function (req, res) {
     data = JSON.parse(data);
 
     // find the index number of the group in the array
-    let foundAt = data.findIndex(element => element.GroupId == id);
+    let foundAt = data.findIndex(element => element.flightId == id);
 
     // delete the group if found
     if (foundAt != -1) {
@@ -363,7 +363,7 @@ app.post("/api/groups/:id/members", urlencodedParser, function (req, res) {
     data = JSON.parse(data);
 
     // find the group
-    let match = data.find(element => element.GroupId == id);
+    let match = data.find(element => element.flightId == id);
     if (match == null) {
         res.status(404).send("Group Not Found");
         console.log("Group Not Found");
@@ -415,7 +415,7 @@ app.put("/api/groups/:id/members", urlencodedParser, function (req, res) {
     data = JSON.parse(data);
 
     // find the group
-    let matchingGroup = data.find(element => element.GroupId == id);
+    let matchingGroup = data.find(element => element.flightId == id);
     if (matchingGroup == null) {
         res.status(404).send("Group Not Found");
         return;
@@ -440,16 +440,16 @@ app.put("/api/groups/:id/members", urlencodedParser, function (req, res) {
 });
 
 // DELETE A MEMBER IN A GROUP
-app.delete("/api/groups/:groupid/members/:memberid", urlencodedParser, function (req, res) {
-    let groupId = req.params.groupid;
+app.delete("/api/groups/:flightId/members/:memberid", urlencodedParser, function (req, res) {
+    let flightId = req.params.flightId;
     let memberId = req.params.memberid;
-    console.log("Received a DELETE request for member " + memberId + " in group " + groupId);
+    console.log("Received a DELETE request for member " + memberId + " in group " + flightId);
 
     // find the group
     let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
     data = JSON.parse(data);
 
-    let matchingGroup = data.find(element => element.GroupId == groupId);
+    let matchingGroup = data.find(element => element.flightId == flightId);
     if (matchingGroup == null) {
         res.status(404).send("Group Not Found");
         console.log("Group Not Found");
