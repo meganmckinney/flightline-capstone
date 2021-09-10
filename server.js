@@ -74,7 +74,7 @@ function isValidGroup(group) {
         return 1;
     if (group.airlineName == undefined || group.airlineName.trim() == "")
         return 2;
-    if (group.SponsorName == undefined || group.SponsorName.trim() == "")
+    if (group.flyTo == undefined || group.flyTo.trim() == "")
         return 3;
     if (group.SponsorPhone == undefined || group.SponsorPhone.trim() == "")
         return 4;
@@ -227,7 +227,7 @@ app.post("/api/groups", urlencodedParser, function (req, res) {
         flightId: getNextId("group"),  // assign id to group
         cabinClass: req.body.cabinClass,
         airlineName: req.body.airlineName,
-        SponsorName: req.body.SponsorName,
+        flyTo: req.body.flyTo,
         SponsorPhone: req.body.SponsorPhone,
         SponsorEmail: req.body.SponsorEmail,
         MaxGroupSize: Number(req.body.MaxGroupSize),
@@ -267,7 +267,7 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
         flightId: req.body.flightId,  // req.params.id if you use id in URL instead of req.body.flightId
         cabinClass: req.body.cabinClass,
         airlineName: req.body.airlineName,
-        SponsorName: req.body.SponsorName,
+        flyTo: req.body.flyTo,
         SponsorPhone: req.body.SponsorPhone,
         SponsorEmail: req.body.SponsorEmail,
         MaxGroupSize: Number(req.body.MaxGroupSize),
@@ -295,7 +295,7 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
     // update the group
     match.cabinClass = group.cabinClass;
     match.airlineName = group.airlineName;
-    match.SponsorName = group.SponsorName;
+    match.flyTo = group.flyTo;
     match.SponsorPhone = group.SponsorPhone;
     match.SponsorEmail = group.SponsorEmail;
 
