@@ -5,7 +5,7 @@
         "airlineName": "Organization One",
         "flyTo": "Natalie Rachelle",
         "flyFrom": "555-000-0000",
-        "SponsorEmail": "nat214@gmail.com",
+        "ticketPrice": "nat214@gmail.com",
         "MaxGroupSize": 7,
         "Members": [
             {
@@ -34,7 +34,7 @@
         "airlineName": "Organization Two",
         "flyTo": "Brittany Ray",
         "flyFrom": "555-000-0004",
-        "SponsorEmail": "brit805@aol.com",
+        "ticketPrice": "brit805@aol.com",
         "MaxGroupSize": 7,
         "Members": [
             {
@@ -57,7 +57,7 @@
         "airlineName": "Organization Three",
         "flyTo": "Zachary Westly",
         "flyFrom": "555-000-0012",
-        "SponsorEmail": "zwest90@gmail.com",
+        "ticketPrice": "zwest90@gmail.com",
         "MaxGroupSize": 7,
         "Members": [
             {

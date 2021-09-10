@@ -78,7 +78,7 @@ function isValidGroup(group) {
         return 3;
     if (group.flyFrom == undefined || group.flyFrom.trim() == "")
         return 4;
-    if (group.SponsorEmail == undefined || group.SponsorEmail.trim() == "")
+    if (group.ticketPrice == undefined || group.ticketPrice.trim() == "")
         return 5;
     if (group.MaxGroupSize == undefined || isNaN(group.MaxGroupSize))
         return 6;
@@ -229,7 +229,7 @@ app.post("/api/groups", urlencodedParser, function (req, res) {
         airlineName: req.body.airlineName,
         flyTo: req.body.flyTo,
         flyFrom: req.body.flyFrom,
-        SponsorEmail: req.body.SponsorEmail,
+        ticketPrice: req.body.ticketPrice,
         MaxGroupSize: Number(req.body.MaxGroupSize),
         Members: []
     };
@@ -269,7 +269,7 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
         airlineName: req.body.airlineName,
         flyTo: req.body.flyTo,
         flyFrom: req.body.flyFrom,
-        SponsorEmail: req.body.SponsorEmail,
+        ticketPrice: req.body.ticketPrice,
         MaxGroupSize: Number(req.body.MaxGroupSize),
     };
 
@@ -297,7 +297,7 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
     match.airlineName = group.airlineName;
     match.flyTo = group.flyTo;
     match.flyFrom = group.flyFrom;
-    match.SponsorEmail = group.SponsorEmail;
+    match.ticketPrice = group.ticketPrice;
 
     // make sure new values for MaxGroupSize doesn't invalidate grooup
     if (Number(group.MaxGroupSize) < match.Members.length) {
