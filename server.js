@@ -72,7 +72,7 @@ function getNextId(counterType)  // use 'group' or 'member' or 'user' as counter
 function isValidGroup(group) {
     if (group.cabinClass == undefined || group.cabinClass.trim() == "")
         return 1;
-    if (group.OrganizationName == undefined || group.OrganizationName.trim() == "")
+    if (group.airlineName == undefined || group.airlineName.trim() == "")
         return 2;
     if (group.SponsorName == undefined || group.SponsorName.trim() == "")
         return 3;
@@ -180,7 +180,7 @@ app.get("/api/groups/byorganization/:id", function (req, res) {
     data = JSON.parse(data);
 
     // find the matching groups for a specific organization
-    let matches = data.filter(element => element.OrganizationName == organization.OrganizationName);
+    let matches = data.filter(element => element.airlineName == organization.airlineName);
 
     console.log("Returned data is: ");
     console.log(matches);
@@ -226,7 +226,7 @@ app.post("/api/groups", urlencodedParser, function (req, res) {
     let group = {
         flightId: getNextId("group"),  // assign id to group
         cabinClass: req.body.cabinClass,
-        OrganizationName: req.body.OrganizationName,
+        airlineName: req.body.airlineName,
         SponsorName: req.body.SponsorName,
         SponsorPhone: req.body.SponsorPhone,
         SponsorEmail: req.body.SponsorEmail,
@@ -266,7 +266,7 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
     let group = {
         flightId: req.body.flightId,  // req.params.id if you use id in URL instead of req.body.flightId
         cabinClass: req.body.cabinClass,
-        OrganizationName: req.body.OrganizationName,
+        airlineName: req.body.airlineName,
         SponsorName: req.body.SponsorName,
         SponsorPhone: req.body.SponsorPhone,
         SponsorEmail: req.body.SponsorEmail,
@@ -294,7 +294,7 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
 
     // update the group
     match.cabinClass = group.cabinClass;
-    match.OrganizationName = group.OrganizationName;
+    match.airlineName = group.airlineName;
     match.SponsorName = group.SponsorName;
     match.SponsorPhone = group.SponsorPhone;
     match.SponsorEmail = group.SponsorEmail;

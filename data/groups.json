@@ -2,7 +2,7 @@
     {
         "flightId": 1,
         "cabinClass": "United Front",
-        "OrganizationName": "Organization One",
+        "airlineName": "Organization One",
         "SponsorName": "Natalie Rachelle",
         "SponsorPhone": "555-000-0000",
         "SponsorEmail": "nat214@gmail.com",
@@ -31,7 +31,7 @@
     {
         "flightId": 2,
         "cabinClass": "Warriors",
-        "OrganizationName": "Organization Two",
+        "airlineName": "Organization Two",
         "SponsorName": "Brittany Ray",
         "SponsorPhone": "555-000-0004",
         "SponsorEmail": "brit805@aol.com",
@@ -54,7 +54,7 @@
     {
         "flightId": 3,
         "cabinClass": "Strategy One",
-        "OrganizationName": "Organization Three",
+        "airlineName": "Organization Three",
         "SponsorName": "Zachary Westly",
         "SponsorPhone": "555-000-0012",
         "SponsorEmail": "zwest90@gmail.com",
