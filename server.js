@@ -76,7 +76,7 @@ function isValidGroup(group) {
         return 2;
     if (group.flyTo == undefined || group.flyTo.trim() == "")
         return 3;
-    if (group.SponsorPhone == undefined || group.SponsorPhone.trim() == "")
+    if (group.flyFrom == undefined || group.flyFrom.trim() == "")
         return 4;
     if (group.SponsorEmail == undefined || group.SponsorEmail.trim() == "")
         return 5;
@@ -228,7 +228,7 @@ app.post("/api/groups", urlencodedParser, function (req, res) {
         cabinClass: req.body.cabinClass,
         airlineName: req.body.airlineName,
         flyTo: req.body.flyTo,
-        SponsorPhone: req.body.SponsorPhone,
+        flyFrom: req.body.flyFrom,
         SponsorEmail: req.body.SponsorEmail,
         MaxGroupSize: Number(req.body.MaxGroupSize),
         Members: []
@@ -268,7 +268,7 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
         cabinClass: req.body.cabinClass,
         airlineName: req.body.airlineName,
         flyTo: req.body.flyTo,
-        SponsorPhone: req.body.SponsorPhone,
+        flyFrom: req.body.flyFrom,
         SponsorEmail: req.body.SponsorEmail,
         MaxGroupSize: Number(req.body.MaxGroupSize),
     };
@@ -296,7 +296,7 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
     match.cabinClass = group.cabinClass;
     match.airlineName = group.airlineName;
     match.flyTo = group.flyTo;
-    match.SponsorPhone = group.SponsorPhone;
+    match.flyFrom = group.flyFrom;
     match.SponsorEmail = group.SponsorEmail;
 
     // make sure new values for MaxGroupSize doesn't invalidate grooup

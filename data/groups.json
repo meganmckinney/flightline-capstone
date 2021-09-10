@@ -4,7 +4,7 @@
         "cabinClass": "United Front",
         "airlineName": "Organization One",
         "flyTo": "Natalie Rachelle",
-        "SponsorPhone": "555-000-0000",
+        "flyFrom": "555-000-0000",
         "SponsorEmail": "nat214@gmail.com",
         "MaxGroupSize": 7,
         "Members": [
@@ -33,7 +33,7 @@
         "cabinClass": "Warriors",
         "airlineName": "Organization Two",
         "flyTo": "Brittany Ray",
-        "SponsorPhone": "555-000-0004",
+        "flyFrom": "555-000-0004",
         "SponsorEmail": "brit805@aol.com",
         "MaxGroupSize": 7,
         "Members": [
@@ -56,7 +56,7 @@
         "cabinClass": "Strategy One",
         "airlineName": "Organization Three",
         "flyTo": "Zachary Westly",
-        "SponsorPhone": "555-000-0012",
+        "flyFrom": "555-000-0012",
         "SponsorEmail": "zwest90@gmail.com",
         "MaxGroupSize": 7,
         "Members": [
