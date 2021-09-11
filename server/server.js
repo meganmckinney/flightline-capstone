@@ -37,7 +37,7 @@ function logArray(arr) {
 
 // ------ Get next ID helper ------------------
 
-function getNextId(counterType)  // use 'group' or 'passenger' or 'user' as counterType
+function getNextId(counterType)  // use 'group'(flight) or 'member'(passenger) or 'user' as counterType
 {
     // read the counter file
     let data = fs.readFileSync(__dirname + "/data/counters.json", "utf8");
@@ -47,9 +47,9 @@ function getNextId(counterType)  // use 'group' or 'passenger' or 'user' as coun
     // counter in the file to indicate that id was used
     let id = -1;
     switch (counterType.toLowerCase()) {
-        case "group":
-            id = data.nextGroup;
-            data.nextGroup++;
+        case "flight":
+            id = data.nextFlight;
+            data.nextFlight++;
             break;
         case "passenger":
             id = data.nextPassenger;
@@ -69,18 +69,18 @@ function getNextId(counterType)  // use 'group' or 'passenger' or 'user' as coun
 
 // ------ Validation helpers ------------------
 
-function isValidGroup(group) {
-    if (group.cabinClass == undefined || group.cabinClass.trim() == "")
+function isValidFlight(flight) {
+    if (flight.cabinClass == undefined || flight.cabinClass.trim() == "")
         return 1;
-    if (group.airlineName == undefined || group.airlineName.trim() == "")
+    if (flight.airlineName == undefined || flight.airlineName.trim() == "")
         return 2;
-    if (group.flyTo == undefined || group.flyTo.trim() == "")
+    if (flight.flyTo == undefined || flight.flyTo.trim() == "")
         return 3;
-    if (group.flyFrom == undefined || group.flyFrom.trim() == "")
+    if (flight.flyFrom == undefined || flight.flyFrom.trim() == "")
         return 4;
-    if (group.ticketPrice == undefined || group.ticketPrice.trim() == "")
+    if (flight.ticketPrice == undefined || flight.ticketPrice.trim() == "")
         return 5;
-    if (group.maxGroupSize == undefined || isNaN(group.maxGroupSize))
+    if (flight.maxFlightSize == undefined || isNaN(flight.maxFlightSize))
         return 6;
 
     return -1;
@@ -129,9 +129,9 @@ app.get("/api/airlines", function (req, res) {
     res.end(JSON.stringify(data));
 });
 
-// GET ALL GROUPS
-app.get("/api/groups", function (req, res) {
-    console.log("Received a GET request for all groups");
+// GET ALL GROUPS -> GET ALL FLIGHTS
+app.get("/api/flights", function (req, res) {
+    console.log("Received a GET request for all flights");
 
     let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
@@ -141,18 +141,18 @@ app.get("/api/groups", function (req, res) {
     res.end(JSON.stringify(data));
 });
 
-// GET ONE GROUP BY ID
-app.get("/api/groups/:id", function (req, res) {
+// GET ONE GROUP BY ID - > GET ONE FLIGHT BY ID
+app.get("/api/flights/:id", function (req, res) {
     let id = req.params.id;
-    console.log("Received a GET request for group " + id);
+    console.log("Received a GET request for flight " + id);
 
     let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
     let match = data.find(element => element.flightId == id);
     if (match == null) {
-        res.status(404).send("Group Not Found");
-        console.log("Group not found");
+        res.status(404).send("Flight Not Found");
+        console.log("Flight not found");
         return;
     }
 
@@ -161,10 +161,10 @@ app.get("/api/groups/:id", function (req, res) {
     res.end(JSON.stringify(match));
 });
 
-// GET MANY GROUPS BY ORGANIZATION -> GET MANY GROUPS BY AIRLINE
-app.get("/api/groups/byairline/:id", function (req, res) {
+// GET MANY GROUPS BY ORGANIZATION -> GET MANY GROUPS BY AIRLINE -> GET MANY FLIGHTS BY AIRLINE
+app.get("/api/flights/byairline/:id", function (req, res) {
     let id = req.params.id;
-    console.log("Received a GET request for groups in airline " + id);
+    console.log("Received a GET request for flights in airline " + id);
 
     let airlineData = fs.readFileSync(__dirname + "/data/airlines.json", "utf8");
     airlineData = JSON.parse(airlineData);
@@ -179,7 +179,7 @@ app.get("/api/groups/byairline/:id", function (req, res) {
     let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
-    // find the matching groups for a specific organization -> airline
+    // find the matching flights for a specific organization -> airline
     let matches = data.filter(element => element.airlineName == airline.airlineName);
 
     console.log("Returned data is: ");
@@ -187,25 +187,25 @@ app.get("/api/groups/byairline/:id", function (req, res) {
     res.end(JSON.stringify(matches));
 });
 
-// GET A SPECIFIC passenger IN A SPECIFIC GROUP
-app.get("/api/groups/:flightId/passengers/:passengerid", function (req, res) {
+// GET A SPECIFIC passenger IN A SPECIFIC FLIGHT
+app.get("/api/flights/:flightId/passengers/:passengerid", function (req, res) {
     let flightId = req.params.flightId;
     let passengerId = req.params.passengerid;
-    console.log("Received a GET request for passenger " + passengerId + " in group " + flightId);
+    console.log("Received a GET request for passenger " + passengerId + " in flight " + flightId);
 
     let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
-    // find the group
-    let matchingGroup = data.find(element => element.flightId == flightId);
-    if (matchingGroup == null) {
-        res.status(404).send("Group Not Found");
-        console.log("Group Not Found");
+    // find the flight
+    let matchingFlight = data.find(element => element.flightId == flightId);
+    if (matchingFlight == null) {
+        res.status(404).send("Flight Not Found");
+        console.log("Flight Not Found");
         return;
     }
 
     // find the passenger 
-    let match = matchingGroup.passengers.find(m => m.passengerId == passengerId);
+    let match = matchingFlight.passengers.find(m => m.passengerId == passengerId);
     if (match == null) {
         res.status(404).send("passenger Not Found");
         console.log("passenger Not Found");
@@ -217,25 +217,25 @@ app.get("/api/groups/:flightId/passengers/:passengerid", function (req, res) {
     res.end(JSON.stringify(match));
 });
 
-// ADD A GROUP
-app.post("/api/groups", urlencodedParser, function (req, res) {
-    console.log("Received a POST request to add a group");
+// ADD A GROUP -> ADD A FLIGHT 
+app.post("/api/flights", urlencodedParser, function (req, res) {
+    console.log("Received a POST request to add a flight");
     console.log("BODY -------->" + JSON.stringify(req.body));
 
-    // assemble group information so we can validate it
-    let group = {
-        flightId: getNextId("group"),  // assign id to group
+    // assemble flight information so we can validate it
+    let flight = {
+        flightId: getNextId("flight"),  // assign id to flight
         cabinClass: req.body.cabinClass,
         airlineName: req.body.airlineName,
         flyTo: req.body.flyTo,
         flyFrom: req.body.flyFrom,
         ticketPrice: req.body.ticketPrice,
-        maxGroupSize: Number(req.body.maxGroupSize),
+        maxFlightSize: Number(req.body.maxFlightSize),
         passengers: []
     };
 
     console.log("Performing validation...");
-    let errorCode = isValidGroup(group);
+    let errorCode = isValidFlight(flight);
     if (errorCode != -1) {
         console.log("Invalid data found! Reason: " + errorCode);
         res.status(400).send("Bad Request - Incorrect or Missing Data");
@@ -245,36 +245,36 @@ app.post("/api/groups", urlencodedParser, function (req, res) {
     let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
-    // add the group
-    data.push(group);
+    // add the flight
+    data.push(flight);
 
     fs.writeFileSync(__dirname + "/data/flights.json", JSON.stringify(data));
 
-    console.log("Group added: ");
-    console.log(group);
+    console.log("Flight added: ");
+    console.log(flight);
 
-    //res.status(201).send(JSON.stringify(group));
-    res.end(JSON.stringify(group));  // return the new group w it's flightId
+    //res.status(201).send(JSON.stringify(flight));
+    res.end(JSON.stringify(flight));  // return the new flight w it's flightId
 });
 
-// EDIT A GROUP
-app.put("/api/groups", urlencodedParser, function (req, res) {
-    console.log("Received a PUT request to group a team");
+// EDIT A GROUP -> EDIT A FLIGHT
+app.put("/api/flights", urlencodedParser, function (req, res) {
+    console.log("Received a PUT request to flight a team");
     console.log("BODY -------->" + JSON.stringify(req.body));
 
-    // assemble group information so we can validate it
-    let group = {
+    // assemble flight information so we can validate it
+    let flight = {
         flightId: req.body.flightId,  // req.params.id if you use id in URL instead of req.body.flightId
         cabinClass: req.body.cabinClass,
         airlineName: req.body.airlineName,
         flyTo: req.body.flyTo,
         flyFrom: req.body.flyFrom,
         ticketPrice: req.body.ticketPrice,
-        maxGroupSize: Number(req.body.maxGroupSize),
+        maxFlightSize: Number(req.body.maxFlightSize),
     };
 
     console.log("Performing validation...");
-    let errorCode = isValidGroup(group);
+    let errorCode = isValidFlight(flight);
     if (errorCode != -1) {
         console.log("Invalid data found! Reason: " + errorCode);
         res.status(400).send("Bad Request - Incorrect or Missing Data");
@@ -284,28 +284,28 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
     let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
-    // find the group
-    let match = data.find(element => element.flightId == group.flightId);
+    // find the flight
+    let match = data.find(element => element.flightId == flight.flightId);
     if (match == null) {
-        res.status(404).send("Group Not Found");
-        console.log("Group Not Found");
+        res.status(404).send("Flight Not Found");
+        console.log("Flight Not Found");
         return;
     }
 
-    // update the group
-    match.cabinClass = group.cabinClass;
-    match.airlineName = group.airlineName;
-    match.flyTo = group.flyTo;
-    match.flyFrom = group.flyFrom;
-    match.ticketPrice = group.ticketPrice;
+    // update the flight
+    match.cabinClass = flight.cabinClass;
+    match.airlineName = flight.airlineName;
+    match.flyTo = flight.flyTo;
+    match.flyFrom = flightt.flyFrom;
+    match.ticketPrice = flight.ticketPrice;
 
-    // make sure new values for maxGroupSize doesn't invalidate grooup
-    if (Number(group.maxGroupSize) < match.passengers.length) {
-        res.status(409).send("New group size too small based on current number of passengers");
-        console.log("New group size too small based on current number of passengers");
+    // make sure new values for maxFlightSize doesn't invalidate grooup
+    if (Number(flight.maxFlightSize) < match.passengers.length) {
+        res.status(409).send("New flight size too small based on current number of passengers");
+        console.log("New flight size too small based on current number of passengers");
         return;
     }
-    match.maxGroupSize = Number(group.maxGroupSize);
+    match.maxFlightSize = Number(flight.maxFlighttSize);
 
     fs.writeFileSync(__dirname + "/data/flights.json", JSON.stringify(data));
 
@@ -314,10 +314,10 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
     res.status(200).send();
 });
 
-// DELETE A GROUP
-app.delete("/api/groups/:id", function (req, res) {
+// DELETE A GROUP -> DELETE A FLIGHT
+app.delete("/api/flights/:id", function (req, res) {
     let id = req.params.id;
-    console.log("Received a DELETE request for group " + id);
+    console.log("Received a DELETE request for flight " + id);
 
     let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
@@ -338,9 +338,9 @@ app.delete("/api/groups/:id", function (req, res) {
 });
 
 // ADD A passenger TO A GROUP
-app.post("/api/groups/:id/passengers", urlencodedParser, function (req, res) {
+app.post("/api/flights/:id/passengers", urlencodedParser, function (req, res) {
     let id = req.params.id;
-    console.log("Received a POST request to add a passenger to group " + id);
+    console.log("Received a POST request to add a passenger to flight " + id);
     console.log("BODY -------->" + JSON.stringify(req.body));
 
     // assemble passenger information so we can validate it
@@ -362,17 +362,17 @@ app.post("/api/groups/:id/passengers", urlencodedParser, function (req, res) {
     let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
-    // find the group
+    // find the flight
     let match = data.find(element => element.flightId == id);
     if (match == null) {
-        res.status(404).send("Group Not Found");
-        console.log("Group Not Found");
+        res.status(404).send("Flight Not Found");
+        console.log("Flight Not Found");
         return;
     }
 
-    if (match.passengers.length == match.maxGroupSize) {
-        res.status(409).send("passenger not added - group at capacity");
-        console.log("passenger not added - group at capacity");
+    if (match.passengers.length == match.maxFlightSize) {
+        res.status(409).send("passenger not added - flight at capacity");
+        console.log("passenger not added - flight at capacity");
         return;
     }
 
@@ -388,10 +388,10 @@ app.post("/api/groups/:id/passengers", urlencodedParser, function (req, res) {
     res.end(JSON.stringify(passenger));  // return the new passenger with passenger id
 });
 
-// EDIT A passenger IN A GROUP
-app.put("/api/groups/:id/passengers", urlencodedParser, function (req, res) {
+// EDIT A member IN A GROUP -> EDIT A PASSENGER IN A GROUP -> EDIT A passenger IN A FLIGHT
+app.put("/api/flights/:id/passengers", urlencodedParser, function (req, res) {
     let id = req.params.id;
-    console.log("Received a PUT request to edit a passenger in group " + id);
+    console.log("Received a PUT request to edit a passenger in flight " + id);
     console.log("BODY -------->" + JSON.stringify(req.body));
 
     // assemble passenger information so we can validate it
@@ -410,19 +410,19 @@ app.put("/api/groups/:id/passengers", urlencodedParser, function (req, res) {
         return;
     }
 
-    // find the group
+    // find the flight
     let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
-    // find the group
-    let matchingGroup = data.find(element => element.flightId == id);
-    if (matchingGroup == null) {
-        res.status(404).send("Group Not Found");
+    // find the flight
+    let matchingFlight = data.find(element => element.flightId == id);
+    if (matchingFlight == null) {
+        res.status(404).send("Flight Not Found");
         return;
     }
 
     // find the passenger
-    let match = matchingGroup.passengers.find(m => m.passengerId == req.body.passengerId);
+    let match = matchingFlight.passengers.find(m => m.passengerId == req.body.passengerId);
     if (match == null) {
         res.status(404).send("passenger Not Found");
         return;
@@ -439,29 +439,29 @@ app.put("/api/groups/:id/passengers", urlencodedParser, function (req, res) {
     res.status(200).send();
 });
 
-// DELETE A passenger IN A GROUP
-app.delete("/api/groups/:flightId/passengers/:passengerid", urlencodedParser, function (req, res) {
+// DELETE A passenger IN A FLIGHT
+app.delete("/api/flights/:flightId/passengers/:passengerid", urlencodedParser, function (req, res) {
     let flightId = req.params.flightId;
     let passengerId = req.params.passengerid;
-    console.log("Received a DELETE request for passenger " + passengerId + " in group " + flightId);
+    console.log("Received a DELETE request for passenger " + passengerId + " in flight " + flightId);
 
-    // find the group
+    // find the flight
     let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
-    let matchingGroup = data.find(element => element.flightId == flightId);
-    if (matchingGroup == null) {
-        res.status(404).send("Group Not Found");
-        console.log("Group Not Found");
+    let matchingFlight = data.find(element => element.flightId == flightId);
+    if (matchingFlight == null) {
+        res.status(404).send("Flight Not Found");
+        console.log("Flight Not Found");
         return;
     }
 
     // find the passenger
-    let foundAt = matchingGroup.passengers.findIndex(m => m.passengerId == passengerId);
+    let foundAt = matchingFlight.passengers.findIndex(m => m.passengerId == passengerId);
 
     // delete the passenger if found
     if (foundAt != -1) {
-        matchingGroup.passengers.splice(foundAt, 1);
+        matchingFlight.passengers.splice(foundAt, 1);
     }
 
     fs.writeFileSync(__dirname + "/data/flights.json", JSON.stringify(data));

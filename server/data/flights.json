@@ -6,7 +6,7 @@
         "flyTo": "Natalie Rachelle",
         "flyFrom": "555-000-0000",
         "ticketPrice": "nat214@gmail.com",
-        "maxGroupSize": 7,
+        "maxFlightSize": 7,
         "passengers": [
             {
                 "passengerId": 2,
@@ -35,7 +35,7 @@
         "flyTo": "Brittany Ray",
         "flyFrom": "555-000-0004",
         "ticketPrice": "brit805@aol.com",
-        "maxGroupSize": 7,
+        "maxFlightSize": 7,
         "passengers": [
             {
                 "passengerId": 1,
@@ -58,7 +58,7 @@
         "flyTo": "Zachary Westly",
         "flyFrom": "555-000-0012",
         "ticketPrice": "zwest90@gmail.com",
-        "maxGroupSize": 7,
+        "maxFlightSize": 7,
         "passengers": [
             {
                 "passengerId": 3,
