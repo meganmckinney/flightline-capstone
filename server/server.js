@@ -37,7 +37,7 @@ function logArray(arr) {
 
 // ------ Get next ID helper ------------------
 
-function getNextId(counterType)  // use 'group' or 'member' or 'user' as counterType
+function getNextId(counterType)  // use 'group' or 'passenger' or 'user' as counterType
 {
     // read the counter file
     let data = fs.readFileSync(__dirname + "/data/counters.json", "utf8");
@@ -51,9 +51,9 @@ function getNextId(counterType)  // use 'group' or 'member' or 'user' as counter
             id = data.nextGroup;
             data.nextGroup++;
             break;
-        case "member":
-            id = data.nextMember;
-            data.nextMember++;
+        case "passenger":
+            id = data.nextPassenger;
+            data.nextPassenger++;
             break;
         case "user":
             id = data.nextUser;
@@ -86,12 +86,12 @@ function isValidGroup(group) {
     return -1;
 }
 
-function isValidMember(member) {
-    if (member.MemberEmail == undefined || member.MemberEmail.trim() == "")
+function isValidpassenger(passenger) {
+    if (passenger.passengerEmail == undefined || passenger.passengerEmail.trim() == "")
         return 1;
-    if (member.MemberName == undefined || member.MemberName.trim() == "")
+    if (passenger.passengerName == undefined || passenger.passengerName.trim() == "")
         return 2;
-    if (member.MemberPhone == undefined || member.MemberPhone.trim() == "")
+    if (passenger.passengerPhone == undefined || passenger.passengerPhone.trim() == "")
         return 3;
 
     return -1;
@@ -187,11 +187,11 @@ app.get("/api/groups/byorganization/:id", function (req, res) {
     res.end(JSON.stringify(matches));
 });
 
-// GET A SPECIFIC MEMBER IN A SPECIFIC GROUP
-app.get("/api/groups/:flightId/members/:memberid", function (req, res) {
+// GET A SPECIFIC passenger IN A SPECIFIC GROUP
+app.get("/api/groups/:flightId/passengers/:passengerid", function (req, res) {
     let flightId = req.params.flightId;
-    let memberId = req.params.memberid;
-    console.log("Received a GET request for member " + memberId + " in group " + flightId);
+    let passengerId = req.params.passengerid;
+    console.log("Received a GET request for passenger " + passengerId + " in group " + flightId);
 
     let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
     data = JSON.parse(data);
@@ -204,11 +204,11 @@ app.get("/api/groups/:flightId/members/:memberid", function (req, res) {
         return;
     }
 
-    // find the member 
-    let match = matchingGroup.Members.find(m => m.MemberId == memberId);
+    // find the passenger 
+    let match = matchingGroup.passengers.find(m => m.passengerId == passengerId);
     if (match == null) {
-        res.status(404).send("Member Not Found");
-        console.log("Member Not Found");
+        res.status(404).send("passenger Not Found");
+        console.log("passenger Not Found");
         return;
     }
 
@@ -231,7 +231,7 @@ app.post("/api/groups", urlencodedParser, function (req, res) {
         flyFrom: req.body.flyFrom,
         ticketPrice: req.body.ticketPrice,
         maxGroupSize: Number(req.body.maxGroupSize),
-        Members: []
+        passengers: []
     };
 
     console.log("Performing validation...");
@@ -300,9 +300,9 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
     match.ticketPrice = group.ticketPrice;
 
     // make sure new values for maxGroupSize doesn't invalidate grooup
-    if (Number(group.maxGroupSize) < match.Members.length) {
-        res.status(409).send("New group size too small based on current number of members");
-        console.log("New group size too small based on current number of members");
+    if (Number(group.maxGroupSize) < match.passengers.length) {
+        res.status(409).send("New group size too small based on current number of passengers");
+        console.log("New group size too small based on current number of passengers");
         return;
     }
     match.maxGroupSize = Number(group.maxGroupSize);
@@ -337,22 +337,22 @@ app.delete("/api/groups/:id", function (req, res) {
     res.status(200).send();
 });
 
-// ADD A MEMBER TO A GROUP
-app.post("/api/groups/:id/members", urlencodedParser, function (req, res) {
+// ADD A passenger TO A GROUP
+app.post("/api/groups/:id/passengers", urlencodedParser, function (req, res) {
     let id = req.params.id;
-    console.log("Received a POST request to add a member to group " + id);
+    console.log("Received a POST request to add a passenger to group " + id);
     console.log("BODY -------->" + JSON.stringify(req.body));
 
-    // assemble member information so we can validate it
-    let member = {
-        MemberId: getNextId("member"),   // assign new id
-        MemberEmail: req.body.MemberEmail,
-        MemberName: req.body.MemberName,
-        MemberPhone: req.body.MemberPhone
+    // assemble passenger information so we can validate it
+    let passenger = {
+        passengerId: getNextId("passenger"),   // assign new id
+        passengerEmail: req.body.passengerEmail,
+        passengerName: req.body.passengerName,
+        passengerPhone: req.body.passengerPhone
     };
 
-    console.log("Performing member validation...");
-    let errorCode = isValidMember(member);
+    console.log("Performing passenger validation...");
+    let errorCode = isValidpassenger(passenger);
     if (errorCode != -1) {
         console.log("Invalid data found! Reason: " + errorCode);
         res.status(400).send("Bad Request - Incorrect or Missing Data");
@@ -370,40 +370,40 @@ app.post("/api/groups/:id/members", urlencodedParser, function (req, res) {
         return;
     }
 
-    if (match.Members.length == match.maxGroupSize) {
-        res.status(409).send("Member not added - group at capacity");
-        console.log("Member not added - group at capacity");
+    if (match.passengers.length == match.maxGroupSize) {
+        res.status(409).send("passenger not added - group at capacity");
+        console.log("passenger not added - group at capacity");
         return;
     }
 
-    // add the member
-    match.Members.push(member);
+    // add the passenger
+    match.passengers.push(passenger);
 
     fs.writeFileSync(__dirname + "/data/groups.json", JSON.stringify(data));
 
-    console.log("New member added!");
-    console.log(member);
+    console.log("New passenger added!");
+    console.log(passenger);
 
-    //res.status(201).send(JSON.stringify(member));
-    res.end(JSON.stringify(member));  // return the new member with member id
+    //res.status(201).send(JSON.stringify(passenger));
+    res.end(JSON.stringify(passenger));  // return the new passenger with passenger id
 });
 
-// EDIT A MEMBER IN A GROUP
-app.put("/api/groups/:id/members", urlencodedParser, function (req, res) {
+// EDIT A passenger IN A GROUP
+app.put("/api/groups/:id/passengers", urlencodedParser, function (req, res) {
     let id = req.params.id;
-    console.log("Received a PUT request to edit a member in group " + id);
+    console.log("Received a PUT request to edit a passenger in group " + id);
     console.log("BODY -------->" + JSON.stringify(req.body));
 
-    // assemble member information so we can validate it
-    let member = {
-        MemberId: req.body.MemberId,
-        MemberEmail: req.body.MemberEmail,
-        MemberName: req.body.MemberName,
-        MemberPhone: req.body.MemberPhone
+    // assemble passenger information so we can validate it
+    let passenger = {
+        passengerId: req.body.passengerId,
+        passengerEmail: req.body.passengerEmail,
+        passengerName: req.body.passengerName,
+        passengerPhone: req.body.passengerPhone
     };
 
-    console.log("Performing member validation...");
-    let errorCode = isValidMember(member);
+    console.log("Performing passenger validation...");
+    let errorCode = isValidpassenger(passenger);
     if (errorCode != -1) {
         console.log("Invalid data found! Reason: " + errorCode);
         res.status(400).send("Bad Request - Incorrect or Missing Data");
@@ -421,29 +421,29 @@ app.put("/api/groups/:id/members", urlencodedParser, function (req, res) {
         return;
     }
 
-    // find the member
-    let match = matchingGroup.Members.find(m => m.MemberId == req.body.MemberId);
+    // find the passenger
+    let match = matchingGroup.passengers.find(m => m.passengerId == req.body.passengerId);
     if (match == null) {
-        res.status(404).send("Member Not Found");
+        res.status(404).send("passenger Not Found");
         return;
     }
 
-    // update the member
-    match.MemberEmail = req.body.MemberEmail;
-    match.MemberName = req.body.MemberName;
-    match.MemberPhone = req.body.MemberPhone;
+    // update the passenger
+    match.passengerEmail = req.body.passengerEmail;
+    match.passengerName = req.body.passengerName;
+    match.passengerPhone = req.body.passengerPhone;
 
     fs.writeFileSync(__dirname + "/data/groups.json", JSON.stringify(data));
 
-    console.log("Member updated!");
+    console.log("passenger updated!");
     res.status(200).send();
 });
 
-// DELETE A MEMBER IN A GROUP
-app.delete("/api/groups/:flightId/members/:memberid", urlencodedParser, function (req, res) {
+// DELETE A passenger IN A GROUP
+app.delete("/api/groups/:flightId/passengers/:passengerid", urlencodedParser, function (req, res) {
     let flightId = req.params.flightId;
-    let memberId = req.params.memberid;
-    console.log("Received a DELETE request for member " + memberId + " in group " + flightId);
+    let passengerId = req.params.passengerid;
+    console.log("Received a DELETE request for passenger " + passengerId + " in group " + flightId);
 
     // find the group
     let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
@@ -456,12 +456,12 @@ app.delete("/api/groups/:flightId/members/:memberid", urlencodedParser, function
         return;
     }
 
-    // find the member
-    let foundAt = matchingGroup.Members.findIndex(m => m.MemberId == memberId);
+    // find the passenger
+    let foundAt = matchingGroup.passengers.findIndex(m => m.passengerId == passengerId);
 
-    // delete the member if found
+    // delete the passenger if found
     if (foundAt != -1) {
-        matchingGroup.Members.splice(foundAt, 1);
+        matchingGroup.passengers.splice(foundAt, 1);
     }
 
     fs.writeFileSync(__dirname + "/data/groups.json", JSON.stringify(data));

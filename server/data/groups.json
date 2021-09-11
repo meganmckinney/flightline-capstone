@@ -7,24 +7,24 @@
         "flyFrom": "555-000-0000",
         "ticketPrice": "nat214@gmail.com",
         "maxGroupSize": 7,
-        "Members": [
+        "passengers": [
             {
-                "MemberId": 2,
-                "MemberEmail": "theaterkid0625@gmail.com",
-                "MemberName": "Ezra Aiden",
-                "MemberPhone": "555-000-0002"
+                "passengerId": 2,
+                "passengerEmail": "theaterkid0625@gmail.com",
+                "passengerName": "Ezra Aiden",
+                "passengerPhone": "555-000-0002"
             },
             {
-                "MemberId": 4,
-                "MemberEmail": "aslan_the_great@gmail.com",
-                "MemberName": "Elisha Aslan",
-                "MemberPhone": "555-000-0003"
+                "passengerId": 4,
+                "passengerEmail": "aslan_the_great@gmail.com",
+                "passengerName": "Elisha Aslan",
+                "passengerPhone": "555-000-0003"
             },
             {
-                "MemberId": 6,
-                "MemberEmail": "susa2007@gmail.com",
-                "MemberName": "Siddalee Grace",
-                "MemberPhone": "555-000-0020"
+                "passengerId": 6,
+                "passengerEmail": "susa2007@gmail.com",
+                "passengerName": "Siddalee Grace",
+                "passengerPhone": "555-000-0020"
             }
         ]
     },
@@ -36,18 +36,18 @@
         "flyFrom": "555-000-0004",
         "ticketPrice": "brit805@aol.com",
         "maxGroupSize": 7,
-        "Members": [
+        "passengers": [
             {
-                "MemberId": 1,
-                "MemberEmail": "pursy1222@gmail.com",
-                "MemberName": "Pursalane Faye",
-                "MemberPhone": "555-000-0005"
+                "passengerId": 1,
+                "passengerEmail": "pursy1222@gmail.com",
+                "passengerName": "Pursalane Faye",
+                "passengerPhone": "555-000-0005"
             },
             {
-                "MemberId": 5,
-                "MemberEmail": "thebro@gmail.com",
-                "MemberName": "Zephaniah Hughes",
-                "MemberPhone": "555-000-0006"
+                "passengerId": 5,
+                "passengerEmail": "thebro@gmail.com",
+                "passengerName": "Zephaniah Hughes",
+                "passengerPhone": "555-000-0006"
             }
         ]
     },
@@ -59,12 +59,12 @@
         "flyFrom": "555-000-0012",
         "ticketPrice": "zwest90@gmail.com",
         "maxGroupSize": 7,
-        "Members": [
+        "passengers": [
             {
-                "MemberId": 3,
-                "MemberEmail": "ian_the_great@gmail.com",
-                "MemberName": "Ian Auston",
-                "MemberPhone": "555-000-0025"
+                "passengerId": 3,
+                "passengerEmail": "ian_the_great@gmail.com",
+                "passengerName": "Ian Auston",
+                "passengerPhone": "555-000-0025"
             }
         ]
     }
