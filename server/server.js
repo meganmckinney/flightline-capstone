@@ -117,11 +117,11 @@ app.get("/index.html", function (req, res) {
 //        parsing and stringifying.  But it is worth it as you debug your code.
 /* ************************************************************************* */
 
-// GET ORGANIZATION
-app.get("/api/organizations", function (req, res) {
-    console.log("Received a GET request for all organizations");
+// GET ORGANIZATION -> GET AIRLINE
+app.get("/api/airlines", function (req, res) {
+    console.log("Received a GET request for all airlines");
 
-    let data = fs.readFileSync(__dirname + "/data/organizations.json", "utf8");
+    let data = fs.readFileSync(__dirname + "/data/airlines.json", "utf8");
     data = JSON.parse(data);
 
     console.log("Returned data is: ");
@@ -161,26 +161,26 @@ app.get("/api/groups/:id", function (req, res) {
     res.end(JSON.stringify(match));
 });
 
-// GET MANY GROUPS BY ORGANIZATION
-app.get("/api/groups/byorganization/:id", function (req, res) {
+// GET MANY GROUPS BY ORGANIZATION -> GET MANY GROUPS BY AIRLINE
+app.get("/api/groups/byairline/:id", function (req, res) {
     let id = req.params.id;
-    console.log("Received a GET request for groups in organization " + id);
+    console.log("Received a GET request for groups in airline " + id);
 
-    let orgData = fs.readFileSync(__dirname + "/data/organizations.json", "utf8");
-    orgData = JSON.parse(orgData);
+    let airlineData = fs.readFileSync(__dirname + "/data/airlines.json", "utf8");
+    airlineData = JSON.parse(airlineData);
 
-    let organization = orgData.find(element => element.OrganizationId.toLowerCase() == id.toLowerCase());
-    if (organization == null) {
-        res.status(404).send("Organization Not Found");
-        console.log("Organization Not Found");
+    let airline = airlineData.find(element => element.airlineId.toLowerCase() == id.toLowerCase());
+    if (airline == null) {
+        res.status(404).send("Airline Not Found");
+        console.log("Airline Not Found");
         return;
     }
 
     let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
     data = JSON.parse(data);
 
-    // find the matching groups for a specific organization
-    let matches = data.filter(element => element.airlineName == organization.airlineName);
+    // find the matching groups for a specific organization -> airline
+    let matches = data.filter(element => element.airlineName == airline.airlineName);
 
     console.log("Returned data is: ");
     console.log(matches);

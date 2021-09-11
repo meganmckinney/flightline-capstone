@@ -2,7 +2,7 @@
     {
         "flightId": 1,
         "cabinClass": "United Front",
-        "airlineName": "Organization One",
+        "airlineName": "Airline One",
         "flyTo": "Natalie Rachelle",
         "flyFrom": "555-000-0000",
         "ticketPrice": "nat214@gmail.com",
@@ -31,7 +31,7 @@
     {
         "flightId": 2,
         "cabinClass": "Warriors",
-        "airlineName": "Organization Two",
+        "airlineName": "Airline Two",
         "flyTo": "Brittany Ray",
         "flyFrom": "555-000-0004",
         "ticketPrice": "brit805@aol.com",
@@ -54,7 +54,7 @@
     {
         "flightId": 3,
         "cabinClass": "Strategy One",
-        "airlineName": "Organization Three",
+        "airlineName": "Airline Three",
         "flyTo": "Zachary Westly",
         "flyFrom": "555-000-0012",
         "ticketPrice": "zwest90@gmail.com",

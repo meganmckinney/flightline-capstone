@@ -1,0 +1,22 @@
+[
+	{
+		"airlineName": "Airline One",
+		"airlineId": "Airline1",
+		"Description": "This is airline 1"
+	},
+	{
+		"airlineName": "Airline Two",
+		"airlineId": "Airline2",
+		"Description": "This is airline 2"
+    },
+    {
+		"airlineName": "Airline Three",
+		"airlineId": "Airline3",
+		"Description": "This is airline 3" 
+	},
+	{
+		"airlineName": "Airline Four",
+		"airlineId": "Airline4",
+		"Description": "This is airline 4"
+	}
+]
