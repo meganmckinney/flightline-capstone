@@ -133,7 +133,7 @@ app.get("/api/airlines", function (req, res) {
 app.get("/api/groups", function (req, res) {
     console.log("Received a GET request for all groups");
 
-    let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
+    let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
     console.log("Returned data is: ");
@@ -146,7 +146,7 @@ app.get("/api/groups/:id", function (req, res) {
     let id = req.params.id;
     console.log("Received a GET request for group " + id);
 
-    let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
+    let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
     let match = data.find(element => element.flightId == id);
@@ -176,7 +176,7 @@ app.get("/api/groups/byairline/:id", function (req, res) {
         return;
     }
 
-    let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
+    let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
     // find the matching groups for a specific organization -> airline
@@ -193,7 +193,7 @@ app.get("/api/groups/:flightId/passengers/:passengerid", function (req, res) {
     let passengerId = req.params.passengerid;
     console.log("Received a GET request for passenger " + passengerId + " in group " + flightId);
 
-    let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
+    let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
     // find the group
@@ -242,13 +242,13 @@ app.post("/api/groups", urlencodedParser, function (req, res) {
         return;
     }
 
-    let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
+    let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
     // add the group
     data.push(group);
 
-    fs.writeFileSync(__dirname + "/data/groups.json", JSON.stringify(data));
+    fs.writeFileSync(__dirname + "/data/flights.json", JSON.stringify(data));
 
     console.log("Group added: ");
     console.log(group);
@@ -281,7 +281,7 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
         return;
     }
 
-    let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
+    let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
     // find the group
@@ -307,7 +307,7 @@ app.put("/api/groups", urlencodedParser, function (req, res) {
     }
     match.maxGroupSize = Number(group.maxGroupSize);
 
-    fs.writeFileSync(__dirname + "/data/groups.json", JSON.stringify(data));
+    fs.writeFileSync(__dirname + "/data/flights.json", JSON.stringify(data));
 
     console.log("Update successful!  New values: ");
     console.log(match);
@@ -319,7 +319,7 @@ app.delete("/api/groups/:id", function (req, res) {
     let id = req.params.id;
     console.log("Received a DELETE request for group " + id);
 
-    let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
+    let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
     // find the index number of the group in the array
@@ -330,7 +330,7 @@ app.delete("/api/groups/:id", function (req, res) {
         data.splice(foundAt, 1);
     }
 
-    fs.writeFileSync(__dirname + "/data/groups.json", JSON.stringify(data));
+    fs.writeFileSync(__dirname + "/data/flights.json", JSON.stringify(data));
 
     console.log("Delete request processed");
     // Note:  even if we didn't find the group, send a 200 because they are gone
@@ -359,7 +359,7 @@ app.post("/api/groups/:id/passengers", urlencodedParser, function (req, res) {
         return;
     }
 
-    let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
+    let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
     // find the group
@@ -379,7 +379,7 @@ app.post("/api/groups/:id/passengers", urlencodedParser, function (req, res) {
     // add the passenger
     match.passengers.push(passenger);
 
-    fs.writeFileSync(__dirname + "/data/groups.json", JSON.stringify(data));
+    fs.writeFileSync(__dirname + "/data/flights.json", JSON.stringify(data));
 
     console.log("New passenger added!");
     console.log(passenger);
@@ -411,7 +411,7 @@ app.put("/api/groups/:id/passengers", urlencodedParser, function (req, res) {
     }
 
     // find the group
-    let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
+    let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
     // find the group
@@ -433,7 +433,7 @@ app.put("/api/groups/:id/passengers", urlencodedParser, function (req, res) {
     match.passengerName = req.body.passengerName;
     match.passengerPhone = req.body.passengerPhone;
 
-    fs.writeFileSync(__dirname + "/data/groups.json", JSON.stringify(data));
+    fs.writeFileSync(__dirname + "/data/flights.json", JSON.stringify(data));
 
     console.log("passenger updated!");
     res.status(200).send();
@@ -446,7 +446,7 @@ app.delete("/api/groups/:flightId/passengers/:passengerid", urlencodedParser, fu
     console.log("Received a DELETE request for passenger " + passengerId + " in group " + flightId);
 
     // find the group
-    let data = fs.readFileSync(__dirname + "/data/groups.json", "utf8");
+    let data = fs.readFileSync(__dirname + "/data/flights.json", "utf8");
     data = JSON.parse(data);
 
     let matchingGroup = data.find(element => element.flightId == flightId);
@@ -464,7 +464,7 @@ app.delete("/api/groups/:flightId/passengers/:passengerid", urlencodedParser, fu
         matchingGroup.passengers.splice(foundAt, 1);
     }
 
-    fs.writeFileSync(__dirname + "/data/groups.json", JSON.stringify(data));
+    fs.writeFileSync(__dirname + "/data/flights.json", JSON.stringify(data));
 
     console.log("Delete request processed");
     // Note:  even if we didn't find them, send a 200 back because they are gone
