@@ -2,22 +2,22 @@
 	{
 		"airlineName": "Amphibian Airlines",
 		"airlineId": "Airline1",
-		"Description": "The froggiest way to fly"
+		"description": "The froggiest way to fly"
 	},
 	{
 		"airlineName": "Northeast",
 		"airlineId": "Airline2",
-		"Description": "Coming soon: West Coast flights"
-		//"Description": "Flights offered: New York, Maine, New Jersey, Delaware, Rhode Island, Massachusetts, Vermont, Connecticut, Virginia, West Virginia, Maryland, and Pennsylvania."
+		"description": "Coming soon: West Coast flights"
+		//"description": "Flights offered: New York, Maine, New Jersey, Delaware, Rhode Island, Massachusetts, Vermont, Connecticut, Virginia, West Virginia, Maryland, and Pennsylvania."
     },
     {
 		"airlineName": "JetBurgundy",
 		"airlineId": "Airline3",
-		"Description": "We will get you there fast, in the worst colored planes the market has to offer." 
+		"description": "We will get you there fast, in the worst colored planes the market has to offer." 
 	},
 	{
 		"airlineName": "Lambda Airlines",
 		"airlineId": "Airline4",
-		"Description": "Λyyyy lmao"
+		"description": "Λyyyy lmao"
 	}
 ]
