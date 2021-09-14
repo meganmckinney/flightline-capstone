@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api'
 
 
@@ -9,34 +9,24 @@ import { MenuItem } from 'primeng/api'
 })
 export class HeaderComponent implements OnInit {
   items: MenuItem[] = [];
+  name: string = 'Flightline';
   constructor() { }
 
 
   ngOnInit() {
       this.items = [
           {
-              label: 'File',
+              label: this.name,
               items: [{
-                      label: 'New',
+                      label: 'Book a flight',
                       icon: 'pi pi-fw pi-plus',
                       items: [
-                          {label: 'Project'},
-                          {label: 'Other'},
+                          {label: 'By Airline'},
+                          {label: 'All Flights'},
                       ]
                   },
-                  {label: 'Open'},
-                  {label: 'Quit'}
-              ]
-          },
-          {
-              label: 'Edit',
-              icon: 'pi pi-fw pi-pencil',
-              items: [
-                  {label: 'Delete', icon: 'pi pi-fw pi-trash'},
-                  {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
               ]
           }
       ];
   }
-
 }
