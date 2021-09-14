@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FlightsService } from '../services/flights.service';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  // flights: any;
 
-  ngOnInit(): void {
-  }
+  // constructor(flightsService: FlightsService) {
+  //   this.flightsService = flightsService.getFlights();
 
+  // }
+
+  // ngOnInit(flightsService: FlightsService): void {
+  //   console.log(this.flights);
+  //   flightsService.currentData.subscribe(res => {
+  //     this.flights = res;
+  //   })
+  // }
+
+  ngOnInit () {}
 }
