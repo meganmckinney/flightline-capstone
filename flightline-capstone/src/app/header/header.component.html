@@ -1,8 +1,11 @@
-<p-menubar [model]="items">
-  <ng-template pTemplate="start">
-    <i class="pi pi-send"></i>
-  </ng-template>
-</p-menubar>
+<div class="header">
+  <p-menubar [model]="items">
+    <ng-template pTemplate="start">
+      <p>{{name}}</p>
+      <i class="pi pi-send"></i>
+    </ng-template>
+  </p-menubar>
+</div>
 
 
 

@@ -1,1 +1,11 @@
+p {
+  display: inline-block;
+}
 
+
+/* TODO: align hamburger menu left of title on mobile */
+@media (max-width: 200px) {
+  .p-menubar .p-component {
+    left: 0;
+  }
+}

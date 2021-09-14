@@ -16,25 +16,21 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
       this.items = [
         {
-          label: this.name,
-      },
-          {
-              label: 'Book a flight',
-              items: [{
-                      label: 'By airline',
-                      icon: 'pi pi-fw pi-plus',
-                      items: [
-                          {label: 'Amphibian Airlines'},
-                          {label: 'Northeast'},
-                          {label: 'JetBurgundy'},
-                          {label: 'Lambda Airlines'},
-                      ]
-                  },
-                  {label: 'All flights'}
-              ]
-          }
-
-      ];
+          label: 'Book a flight',
+          items: [{
+            label: 'By airline',
+            icon: 'pi pi-fw pi-plus',
+            items: [
+              { label: 'Amphibian Airlines' },
+              { label: 'Northeast' },
+              { label: 'JetBurgundy' },
+              { label: 'Lambda Airlines' },
+            ]
+          },
+          { label: 'All flights' }
+          ]
+        }
+    ];
   }
 
 }
