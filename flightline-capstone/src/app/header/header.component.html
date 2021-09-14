@@ -1,16 +1,13 @@
-<!-- <div class="header">
-  <nav>
-    <p>Flightline</p>
-  </nav>
-
-</div> -->
 <header class="header">
-  <img src="assets/airplane.png" class="logo">
   <p>Flightline</p>
-  <nav class="header-nav">
-    <a href="#">Link 1</a>
-    <a href="#">Link 2</a>
-  </nav>
+
 </header>
+
+<p-menubar [model]="items">
+  <ng-template pTemplate="start">
+    <i class="pi pi-send"></i>
+  </ng-template>
+</p-menubar>
+
 
 

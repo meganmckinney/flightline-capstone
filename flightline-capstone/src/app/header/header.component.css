@@ -18,6 +18,10 @@ nav {
   display: flex;
 }
 
+p-menubar > ng-templater > i {
+  height: 50px;
+}
+
 
 
 .logo {
