@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MenuItem } from 'primeng/api'
+import { FlightsComponent } from '../flights/flights.component';
 
 
 @Component({
@@ -10,10 +11,13 @@ import { MenuItem } from 'primeng/api'
 export class HeaderComponent implements OnInit {
   items: MenuItem[] = [];
   name: string = 'Flightline';
+
   constructor() { }
 
 
   ngOnInit() {
+    //FlightsComponent.getFlights();
+
       this.items = [
         {
           label: 'Book a flight',

@@ -9,38 +9,15 @@ import { Flights } from '../model/flights';
   providedIn: 'root'
 })
 export class FlightsService {
+  private flightUrl: string = 'http://localhost:8082/api/flights'
+  options = {observe: 'body', responseType: 'json'};
 
-  // flights: Flights
-  options = {};
+  constructor(private readonly http: HttpClient) {}
 
-  //private $flights: Observable<Object>;
-  constructor(private http: HttpClient) {
-    // this.$flights = this.http.get('/api/flights');
+  getFlights() {
+    return this.http.get<Flights[]>(this.flightUrl);
   }
 
-  ngOnInit(){
 
-
-
-
-  }
-
-  // getFlights() {
-  //   return this.http.get<Flights>('/api/flights', this.options);
-
-  //   // this.http.get('/api/flights').subscribe(res => {
-  //   //   this.data.next(res);
-  //   // })
-
-  // }
 }
-//     let flights = this.http.get('/api/flights').subscribe(res => {
-//       res.
 
-//     },
-//     err => {
-
-//     });
-//     return flights;
-//   }
-// }
