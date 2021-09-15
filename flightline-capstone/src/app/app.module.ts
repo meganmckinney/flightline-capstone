@@ -12,6 +12,7 @@ import { SharedModule } from 'primeng/api';
 import { FlightsComponent } from './flights/flights.component';
 import { FlightsService } from './services/flights.service';
 import { TableModule } from 'primeng/table';
+import { FlightDetailsComponent } from './flight-details/flight-details.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { TableModule } from 'primeng/table';
     HeaderComponent,
     FooterComponent,
     MainComponent,
-    FlightsComponent
+    FlightsComponent,
+    FlightDetailsComponent
   ],
   imports: [
     BrowserModule,
