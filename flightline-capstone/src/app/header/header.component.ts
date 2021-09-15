@@ -14,10 +14,7 @@ export class HeaderComponent implements OnInit {
 
   constructor() { }
 
-
   ngOnInit() {
-    //FlightsComponent.getFlights();
-
       this.items = [
         {
           label: 'Book a flight',
@@ -36,5 +33,4 @@ export class HeaderComponent implements OnInit {
         }
     ];
   }
-
 }

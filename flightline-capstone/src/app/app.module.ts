@@ -13,6 +13,7 @@ import { FlightsComponent } from './flights/flights.component';
 import { FlightsService } from './services/flights.service';
 import { TableModule } from 'primeng/table';
 import { FlightDetailsComponent } from './flight-details/flight-details.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
