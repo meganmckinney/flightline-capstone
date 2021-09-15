@@ -1,1 +1,26 @@
 
+<p-table [value]="flights">
+  <ng-template pTemplate="header">
+      <tr>
+          <th>Flight ID</th>
+          <th>Cabin Class</th>
+          <th>Airline Name</th>
+          <th>Fly To</th>
+          <th>Fly From</th>
+          <th>Ticket Price</th>
+          <th>Maximum Flight Size</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-flight>
+      <tr>
+          <td>{{flight.flightId}}</td>
+          <td>{{flight.cabinClass}}</td>
+          <td>{{flight.airlineName}}</td>
+          <td>{{flight.flyTo}}</td>
+          <td>{{flight.flyFrom}}</td>
+          <td>{{flight.ticketPrice}}</td>
+          <td>{{flight.maxFlightSize}}</td>
+      </tr>
+  </ng-template>
+</p-table>
+

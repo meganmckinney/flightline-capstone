@@ -11,6 +11,7 @@ import { MainComponent } from './main/main.component';
 import { SharedModule } from 'primeng/api';
 import { FlightsComponent } from './flights/flights.component';
 import { FlightsService } from './services/flights.service';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { FlightsService } from './services/flights.service';
     AppRoutingModule,
     MenubarModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    TableModule
   ],
   providers: [ FlightsService ],
   bootstrap: [AppComponent]
