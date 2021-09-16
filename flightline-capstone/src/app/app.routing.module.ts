@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, Route } from '@angular/router';
-import { FlightDetailsComponent } from './flight-details/flight-details.component';
+import { FlightDetailsComponent } from './add-flight/add-flight.component.spec';
 import { FlightsComponent } from './flights/flights.component';
 import { MainComponent } from './main/main.component';
 

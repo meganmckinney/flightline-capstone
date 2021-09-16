@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FlightDetailsComponent } from './flight-details.component';
+import { FlightDetailsComponent } from './add-flight.component.spec';
 
 describe('FlightDetailsComponent', () => {
   let component: FlightDetailsComponent;
