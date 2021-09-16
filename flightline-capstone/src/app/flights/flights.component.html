@@ -1,7 +1,8 @@
 
-<p-table [value]="flights">
+<p-table [value]="flights" dataKey="flightId">
   <ng-template pTemplate="header">
       <tr>
+          <th></th>
           <th>Flight ID</th>
           <th>Cabin Class</th>
           <th>Airline Name</th>
@@ -11,16 +12,50 @@
           <th>Maximum Flight Size</th>
       </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-flight>
+  <ng-template pTemplate="body" let-flights let-expanded="expanded">
       <tr>
-          <td>{{flight.flightId}}</td>
-          <td>{{flight.cabinClass}}</td>
-          <td>{{flight.airlineName}}</td>
-          <td>{{flight.flyTo}}</td>
-          <td>{{flight.flyFrom}}</td>
-          <td>{{flight.ticketPrice}}</td>
-          <td>{{flight.maxFlightSize}}</td>
+        <td>
+          <button type="button" pButton pRipple [pRowToggler]="flights" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+      </td>
+          <td>{{flights.flightId}}</td>
+          <td>{{flights.cabinClass}}</td>
+          <td>{{flights.airlineName}}</td>
+          <td>{{flights.flyTo}}</td>
+          <td>{{flights.flyFrom}}</td>
+          <td>{{flights.ticketPrice}}</td>
+          <td>{{flights.maxFlightSize}}</td>
       </tr>
+  </ng-template>
+  <ng-template pTemplate="rowexpansion" let-flights>
+    <tr>
+        <td colspan="8">
+            <div class="p-p-3">
+                <p-table [value]="flights.passengers" dataKey="passengerId">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="passengerId">Passenger Id <p-sortIcon field="passengerId"></p-sortIcon></th>
+                            <th pSortableColumn="passengerName">Passenger Name <p-sortIcon field="passengerName"></p-sortIcon></th>
+                            <th pSortableColumn="passengerEmail">Passenger Email <p-sortIcon field="passengerEmail"></p-sortIcon></th>
+                            <th pSortableColumn="passengerPhone">Passenger Phone <p-sortIcon field="passengerPhone"></p-sortIcon></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-passenger>
+                        <tr>
+                            <td>{{passenger.passengerId}}</td>
+                            <td>{{passenger.passengerName}}</td>
+                            <td>{{passenger.passengerEmail}}</td>
+                            <td>{{passenger.passengerPhone}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                      <tr>
+                        <td colspan="8">There are no passengers on this flight yet.</td>
+                    </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </td>
+    </tr>
   </ng-template>
 </p-table>
 

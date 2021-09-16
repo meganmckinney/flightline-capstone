@@ -13,8 +13,7 @@ import { FlightsComponent } from './flights/flights.component';
 import { FlightsService } from './services/flights.service';
 import { TableModule } from 'primeng/table';
 import { FlightDetailsComponent } from './flight-details/flight-details.component';
-import { RouterModule } from '@angular/router';
-
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -31,7 +30,8 @@ import { RouterModule } from '@angular/router';
     MenubarModule,
     SharedModule,
     HttpClientModule,
-    TableModule
+    TableModule,
+    ButtonModule
   ],
   providers: [ FlightsService ],
   bootstrap: [AppComponent]

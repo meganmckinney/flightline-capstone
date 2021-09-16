@@ -2,8 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Flights } from '../model/flights';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -16,4 +14,3 @@ export class FlightsService {
     return this.http.get<Flights[]>(this.flightUrl);
   }
 }
-
