@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MenubarModule } from 'primeng/menubar'
 import { HttpClientModule } from '@angular/common/http'
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -13,6 +12,7 @@ import { FlightsService } from './services/flights.service';
 import { TableModule } from 'primeng/table';
 import { AddFlightComponent } from './add-flight/add-flight.component';
 import { ButtonModule } from 'primeng/button';
+import { AppRoutingModule } from './app.routing.module';
 
 @NgModule({
   declarations: [

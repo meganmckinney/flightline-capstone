@@ -4,7 +4,7 @@ import { AddFlightComponent } from './add-flight/add-flight.component';
 import { FlightsComponent } from './flights/flights.component';
 
 const indexRoute: Route = {
-  path: "",
+  path: '',
   component: FlightsComponent
 }
 
