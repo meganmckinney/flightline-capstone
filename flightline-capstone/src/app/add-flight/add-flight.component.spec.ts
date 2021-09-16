@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-@Component({
-  selector: 'app-add-flight',
-  templateUrl: './add-flight.component.html',
-  styleUrls: ['./add-flight.component.css']
-})
-export class FlightDetailsComponent implements OnInit {
+import { AddFlightComponent } from './add-flight.component';
 
-  constructor() { }
+describe('AddFlightComponent', () => {
+  let component: AddFlightComponent;
+  let fixture: ComponentFixture<AddFlightComponent>;
 
-  ngOnInit(): void {
-  }
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ AddFlightComponent ]
+    })
+    .compileComponents();
+  });
 
-}
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AddFlightComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

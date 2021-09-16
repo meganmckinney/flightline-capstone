@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, Route } from '@angular/router';
-import { FlightDetailsComponent } from './add-flight/add-flight.component.spec';
+import { AddFlightComponent } from './add-flight/add-flight.component';
 import { FlightsComponent } from './flights/flights.component';
-import { MainComponent } from './main/main.component';
 
 const indexRoute: Route = {
   path: "",
@@ -10,11 +9,18 @@ const indexRoute: Route = {
 }
 
 const fallbackRoute: Route = {
-  path: '*', component: MainComponent
+  path: '*', component: FlightsComponent
 }
 
 const routes: Routes = [
   indexRoute,
-  { path: '', component: FlightDetailsComponent},
+  { path: '/add', component: AddFlightComponent },
   fallbackRoute,
 ]
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+
+export class AppRoutingModule {}

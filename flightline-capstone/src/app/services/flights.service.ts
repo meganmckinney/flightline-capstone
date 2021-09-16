@@ -13,4 +13,6 @@ export class FlightsService {
   getFlights() {
     return this.http.get<Flights[]>(this.flightUrl);
   }
+
+
 }
