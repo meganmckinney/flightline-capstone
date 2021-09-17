@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
               {label: 'Lambda Airlines'},
             ]
           },
-          {label: 'All flights', url: '/flights'}
+          {label: 'All flights', url: '/'}
           ]
         }
     ];

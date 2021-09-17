@@ -11,9 +11,10 @@ import { FlightsService } from '../services/flights.service';
 })
 
 export class FlightsComponent implements OnInit {
+
+  isLoading: boolean = false;
   flights: Flights[] | any;
   ngOnDestroy$ = new Subject();
-  object = {};
   constructor(private readonly flightsService: FlightsService) {}
 
   ngOnInit(): void {

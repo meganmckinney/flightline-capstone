@@ -1,1 +1,79 @@
-<p>Blank page</p>
+
+<div class="p-fluid p-formgrid p-grid">
+  <div *ngIf="isLoading">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+<form [formGroup]="flightsForm" class="ui-g">
+  <p-panel header="Create a New Flight" class="ui-g-12">
+
+    <!-- Fly to -->
+    <div class="ui-g">
+      <label for="flyTo" class="ui-g-12 ui-md-2">Fly To</label>
+
+      <input pInputText id="flyTo" formControlName="flyTo" placeholder="Enter destination" class="ui-g-12 ui-md-5"/>
+      <div class="ui-g-12 ui-md-5">
+        <!-- for error messages -->
+      </div>
+
+    </div>
+
+        <!-- Fly from -->
+        <div class="ui-g">
+          <label for="flyFrom" class="ui-g-12 ui-md-2">Fly From</label>
+
+          <input pInputText id="flyFrom" formControlName="flyFrom" placeholder="Enter departing location" class="ui-g-12 ui-md-5"/>
+          <div class="ui-g-12 ui-md-5">
+            <!-- for error messages -->
+          </div>
+
+        </div>
+
+            <!-- Cabin Class -->
+    <div class="ui-g">
+      <label for="cabinClass" class="ui-g-12 ui-md-2">Cabin Class</label>
+
+      <input pInputText id="cabinClass" formControlName="cabinClass" placeholder="Enter cabin class" class="ui-g-12 ui-md-5"/>
+      <div class="ui-g-12 ui-md-5">
+        <!-- for error messages -->
+      </div>
+
+    </div>
+
+        <!-- Ticket Price -->
+        <div class="ui-g">
+          <label for="ticketPrice" class="ui-g-12 ui-md-2">Ticket Price</label>
+
+          <p-inputNumber id="ticketPrice" formControlName="ticketPrice" placeholder="Enter ticket price" class="ui-g-12 ui-md-5"></p-inputNumber>
+          <div class="ui-g-12 ui-md-5">
+            <!-- for error messages -->
+          </div>
+
+        </div>
+
+            <!-- Maximum Passenger Size -->
+    <div class="ui-g">
+      <label for="maxFlightSize" class="ui-g-12 ui-md-2">Maximum Passenger Size</label>
+
+      <p-inputNumber id="maxFlightSize" formControlName="maxFlightSize" placeholder="Enter maximum passenger size" class="ui-g-12 ui-md-5"></p-inputNumber>
+      <div class="ui-g-12 ui-md-5">
+        <!-- for error messages -->
+      </div>
+    </div>
+
+        <!-- Airline Name -->
+        <div class="ui-g">
+          <label for="airlineName" class="ui-g-12 ui-md-2">Airline Name</label>
+
+          <input pInputText id="airlineName" formControlName="airlineName" placeholder="Enter the airline name" class="ui-g-12 ui-md-5"/>
+          <div class="ui-g-12 ui-md-5">
+            <!-- for error messages -->
+          </div>
+
+        </div>
+  </p-panel>
+  <p-button label="Submit" (onClick)="onSubmit($event)"></p-button>
+</form>
+</div>
+
+
+
