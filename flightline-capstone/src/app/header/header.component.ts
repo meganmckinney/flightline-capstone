@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MenuItem } from 'primeng/api'
+
 
 @Component({
   selector: 'app-header',
@@ -10,15 +10,26 @@ import { MenuItem } from 'primeng/api'
 export class HeaderComponent implements OnInit {
   items: MenuItem[] = [];
   name: string = 'Flightline';
-  router: Router
+  constructor() { }
 
-  constructor(router: Router) {
-    this.router = router;
+
+  ngOnInit() {
+      this.items = [
+        {
+          label: 'Book a flight',
+          items: [{
+            label: 'By airline',
+            icon: 'pi pi-fw pi-plus',
+            items: [
+              {label: 'Amphibian Airlines'},
+              {label: 'Northeast'},
+              {label: 'JetBurgundy'},
+              {label: 'Lambda Airlines'},
+            ]
+          },
+          {label: 'All flights', url: '/flights'}
+          ]
+        }
+    ];
   }
-
-  ngOnInit() {}
-
-  addUserButton() {
-    this.router.navigateByUrl('/add');
-};
 }

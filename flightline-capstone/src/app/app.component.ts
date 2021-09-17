@@ -8,6 +8,5 @@ export class AppComponent {
   title = 'flightline';
 
   ngOnInit() {
-    //console.log();
   }
 }

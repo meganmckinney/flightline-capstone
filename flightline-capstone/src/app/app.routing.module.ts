@@ -1,10 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, Route } from '@angular/router';
 import { AddFlightComponent } from './add-flight/add-flight.component';
 import { FlightsComponent } from './flights/flights.component';
 
 const indexRoute: Route = {
-  path: '',
+  path: 'flights',
   component: FlightsComponent
 }
 
@@ -14,12 +15,12 @@ const fallbackRoute: Route = {
 
 const routes: Routes = [
   indexRoute,
-  { path: '/add', component: AddFlightComponent },
+  { path: 'add', component: AddFlightComponent },
   fallbackRoute,
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [CommonModule, RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 
