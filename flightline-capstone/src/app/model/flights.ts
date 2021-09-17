@@ -1,5 +1,5 @@
 export interface Flights {
-  flightId: number;
+  flightId?: number;
   cabinClass: string;
   airlineName: string;
   flyTo: string;
@@ -13,3 +13,4 @@ export interface Flights {
     passengerPhone: number
   }
 }
+

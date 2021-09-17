@@ -15,7 +15,8 @@ const fallbackRoute: Route = {
 
 const routes: Routes = [
   indexRoute,
-  { path: 'add', component: AddFlightComponent },
+  { path: 'add', component: AddFlightComponent},
+  { path: 'edit/:id', component: AddFlightComponent},
   fallbackRoute,
 ]
 

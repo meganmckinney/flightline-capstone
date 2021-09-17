@@ -10,6 +10,7 @@
           <th>Fly From</th>
           <th>Ticket Price</th>
           <th>Maximum Flight Size</th>
+          <th></th>
       </tr>
   </ng-template>
   <ng-template pTemplate="body" let-flights let-expanded="expanded">
@@ -24,11 +25,15 @@
           <td>{{flights.flyFrom}}</td>
           <td>{{flights.ticketPrice}}</td>
           <td>{{flights.maxFlightSize}}</td>
+          <td>
+            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="editFlights(flights)"></button>
+            <button pButton type="button" icon="pi pi-minus-circle" class="p-button-rounded p-button-text p-button-danger" (click)="deleteFlights(flights)"></button>
+          </td>
       </tr>
   </ng-template>
   <ng-template pTemplate="rowexpansion" let-flights>
     <tr>
-        <td colspan="8">
+        <td colspan="9">
             <div class="p-p-3">
                 <p-table [value]="flights.passengers" dataKey="passengerId">
                     <ng-template pTemplate="header">
@@ -49,7 +54,7 @@
                     </ng-template>
                     <ng-template pTemplate="emptymessage">
                       <tr>
-                        <td colspan="8">There are no passengers on this flight yet.</td>
+                        <td colspan="9">There are no passengers on this flight yet.</td>
                     </tr>
                     </ng-template>
                 </p-table>

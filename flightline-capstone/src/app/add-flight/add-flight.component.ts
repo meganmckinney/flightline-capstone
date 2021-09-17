@@ -4,6 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Flights } from '../model/flights';
 import { FlightsService } from '../services/flights.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-flight',
@@ -11,16 +12,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-flight.component.css']
 })
 export class AddFlightComponent implements OnInit {
-
+  isEdit: boolean = false;
   isLoading: boolean = false;
   flightsForm: FormGroup | any;
-  flights: Flights[] | any;
+  flight: Flights | any;
   ngOnDestroy$ = new Subject();
-  items = this.flightsService.getFlights();
-  constructor(private readonly flightsService: FlightsService, private fb: FormBuilder) {}
+
+  constructor(private readonly flightsService: FlightsService, private fb: FormBuilder, private readonly route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.getFlights();
     this.flightsForm = this.fb.group({
       flyFrom: ['', [Validators.required, Validators.minLength(5)]],
       flyTo: ['', [Validators.required, Validators.minLength(5)]],
@@ -28,17 +28,16 @@ export class AddFlightComponent implements OnInit {
       ticketPrice: ['', [Validators.required]],
       maxFlightSize: ['', [Validators.required, Validators.minLength(5)]],
       airlineName: ['', [Validators.required, Validators.minLength(5)]],
-    })
-  }
-
-  getFlights() {
-    this.flightsService.getFlights().pipe(takeUntil(this.ngOnDestroy$)).subscribe((res: Flights[]) => {
-      this.flights = res;
     });
+    this.route.params.subscribe(params => this.getFlight(params['id']));
   }
 
-  addFlight(flight: any) {
-    this.flightsService.addFlight(this.flights).subscribe(flight => this.flights.push(flight));
+  getFlight(id: number) {
+    this.flightsService.getFlightById(id).pipe(takeUntil(this.ngOnDestroy$)).subscribe((res: Flights) => {
+      this.isEdit = true;
+      this.flightsForm.addControl('flightId', this.fb.control(''));
+      this.flightsForm.setValue(res);
+    });
   }
 
   ngOnDestroy() {
@@ -47,7 +46,11 @@ export class AddFlightComponent implements OnInit {
 
   onSubmit(event: any): void {
     if(this.flightsForm.valid) {
-      this.flightsService.addFlight(this.flightsForm.value).subscribe(res => console.log(res), err => console.error(err));
+      if(this.isEdit) {
+        this.flightsService.updateFlight(this.flightsForm.value).subscribe(res => console.log(res), err => console.error(err));
+      } else {
+        this.flightsService.addFlight(this.flightsForm.value).subscribe(res => console.log(res), err => console.error(err));
+      }
       this.flightsForm.reset();
     }
   }

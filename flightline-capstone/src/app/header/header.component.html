@@ -1,10 +1,12 @@
 <div class="header">
   <ng-template pTemplate="end"></ng-template>
-  <p-menubar [model]="items">
+  <p-menubar>
     <ng-template pTemplate="start">
       <p>{{name}}</p>
       <i class="pi pi-send"></i>
     <p-button label="Create new flight" routerLink="add" routerLinkActive="true"></p-button>
+    <p-button label="All flights" routerLink="/" routerLinkActive="true"></p-button>
+
     </ng-template>
   </p-menubar>
 </div>
